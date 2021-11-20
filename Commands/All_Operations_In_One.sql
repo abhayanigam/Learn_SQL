@@ -48,7 +48,7 @@ Delete from `test_database`.`customers`
 where `id` = 6;
 
 -- To Delete All Records from the table
-Delete from `test_database`.`customers`;
+truncate table `test_database`.`customers`;
 
 -- Like Clause
 SELECT * FROM `test_database`.`customers`
@@ -89,5 +89,86 @@ where `salary` between 1000 And 2000;
 Select * from `test_database`.`customers`
 where `salary` Not between 1000 And 2000;
 
+-- Creating new orders table
+create table `test_database`.`orders`(
+	`OID` int not null auto_increment,
+    `DATE` date null,
+    `CUSTOMER_ID` int not null,
+    `AMOUNT` int not null,
+    unique index `id_unique` (`OID` Asc) visible
+);
 
+-- Inserting values in the orders table 
+INSERT INTO `test_database`.`ORDERS` (`DATE`, `CUSTOMER_ID`, `AMOUNT`) VALUES ('2009-10-08 ', '3', '3000'),('2009-10-08','3','1500'),('2009-11-20','2','1560'),('2008-05-20','4','2060');
 
+-- Set the start number for auto increment :
+ALTER TABLE `test_database`.`ORDERS` AUTO_INCREMENT=100;
+
+-- Showing Order table
+Select * from `test_database`.`orders`;
+
+-- Join Operations
+-- 1 : Inner Join 
+Select `ID`,`Name`,`Amount`,`Date` from `test_database`.`Customers`
+inner join `test_database`.`Orders` on `customers.ID` = `Orders.Customer_ID`;
+
+-- 2 : LEFT JOIN
+SELECT `ID` ,`NAME` ,`AMOUNT`, `DATE`
+FROM `test_database`.`CUSTOMERS`
+LEFT JOIN `test_database`.`ORDERS` ON `CUSTOMERS.ID` = `ORDERS.CUSTOMER_ID`;
+
+-- 3 : RIGHT JOIN
+SELECT `ID` ,`NAME` ,`AMOUNT`, `DATE`
+FROM `test_database`.`CUSTOMER`
+RIGHT JOIN `test_database`.`ORDERS` ON `CUSTOMER.ID` = `ORDERS.CUSTOMER_ID`;
+
+-- 4 : FULL JOIN
+SELECT `ID` ,`NAME` ,`AMOUNT`, `DATE`
+FROM `test_database`.`CUSTOMERS`
+FULL JOIN `test_database`.`ORDERS` ON `CUSTOMER.ID` = `ORDERS.CUSTOMER_ID`;
+
+-- 5 : SELF JOIN as follows −
+
+SELECT  `a.ID`, `b.NAME`, `a.SALARY`
+   FROM `CUSTOMERS` a, `CUSTOMERS` b
+   WHERE `a.SALARY` < `b.SALARY`;
+
+-- UNION CLAUSE
+SELECT  ID, NAME, AMOUNT, DATE
+   FROM CUSTOMER
+   LEFT JOIN ORDERS
+   ON CUSTOMER.ID = ORDERS.CUSTOMER_ID
+UNION
+   SELECT  ID, NAME, AMOUNT, DATE
+   FROM CUSTOMER
+   RIGHT JOIN ORDERS
+   ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
+   
+-- UNION ALL
+SELECT  ID, NAME, AMOUNT, DATE
+   FROM CUSTOMER
+   LEFT JOIN ORDERS
+   ON CUSTOMER.ID = ORDERS.CUSTOMER_ID
+UNION ALL
+   SELECT  ID, NAME, AMOUNT, DATE
+   FROM CUSTOMER
+   RIGHT JOIN ORDERS
+   ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
+   
+-- The COMMIT command is the transactional command used to save changes invoked by a
+-- transaction to the database. The COMMIT command saves all the transactions to the 
+-- database since the last COMMIT or ROLLBACK command.
+
+-- example which would delete those records from the table which have age = 25 and 
+-- then COMMIT the changes in the database.
+DELETE FROM `test_database`.`customers` WHERE `AGE` = 25;
+COMMIT;
+
+-- The ROLLBACK command is the transactional command used to undo transactions that 
+-- have not already been saved to the database. This command can only be used to undo 
+-- transactions since the last COMMIT or ROLLBACK command was issued.
+
+ROLLBACK;
+
+-- To Select the current DataBase 
+Use `test_database`;
