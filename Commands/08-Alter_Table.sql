@@ -1,4 +1,4 @@
--- SQL ALTER TABLE Command
+-- SQL ALTER TABLE Command     
 
 /*
 	SQL ALTER TABLE Statement
