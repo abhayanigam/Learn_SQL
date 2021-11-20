@@ -1,4 +1,4 @@
--- SQL Maths (Operation Functions)
+-- SQL Maths (Operation Functions)    
 
 /*
 	1. The SQL MIN() and MAX() Functions
